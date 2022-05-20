@@ -1,18 +1,31 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import { GrUser as MaleIcon, GrUserFemale as FemaleIcon } from 'react-icons/gr';
 import {
   GridComponent,
+  ColumnChooser,
   ColumnDirective,
   ColumnsDirective,
   Page,
   Inject,
   Toolbar,
-  ColumnChooser,
   Resize,
 } from '@syncfusion/ej2-react-grids';
 import people from '../data/People.json';
 
 export const DataGrid: FC<{}> = () => {
+  const gridRef = React.useRef(null);
+
+  useEffect(() => {
+    if (gridRef.current) {
+      gridRef.current.autoFitColumns([
+        'FirstName',
+        'LastName',
+        'Gender',
+        'Age',
+      ]);
+    }
+  }, [gridRef.current]);
+
   const genterTemplate = (props: any) => {
     if (props.Gender === 'Male') {
       return <MaleIcon />;
@@ -31,6 +44,7 @@ export const DataGrid: FC<{}> = () => {
 
   return (
     <GridComponent
+      ref={gridRef}
       dataSource={people.value}
       allowPaging={true}
       pageSettings={{ pageSize: 5 }}
@@ -39,6 +53,7 @@ export const DataGrid: FC<{}> = () => {
       toolbar={['ColumnChooser']}
       showColumnChooser={true}
       allowResizing={true}
+      resizeSettings={{ mode: 'Auto' }}
     >
       <ColumnsDirective>
         <ColumnDirective field="FirstName" headerText="First Name" />

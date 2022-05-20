@@ -14,10 +14,12 @@ export default function App() {
   );
 
   return (
-    <div className="container">
-      {showGrid && <DataGrid />}
-      <div className="text-center">
-        <button onClick={handleShowGrid}>{gridButton}</button>
+    <div className="App">
+      <div className="container">
+        {showGrid && <DataGrid />}
+        <div className="text-center">
+          <button onClick={handleShowGrid}>{gridButton}</button>
+        </div>
       </div>
     </div>
   );
